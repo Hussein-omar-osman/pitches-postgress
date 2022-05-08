@@ -18,4 +18,7 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
  form = LoginForm()
+ email = form.email.data
+ password = form.password.data
+ print(email, password)
  return render_template('login.html', title='Login', form=form)
