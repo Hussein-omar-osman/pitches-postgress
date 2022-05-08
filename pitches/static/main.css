@@ -10,3 +10,8 @@ body {
 label {
   font-weight: 600;
 }
+
+.cont-alert {
+  max-width: 600px;
+  margin: 0 auto;
+}

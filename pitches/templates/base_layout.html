@@ -16,7 +16,7 @@
     <!-- <div class="b-example-divider"></div> -->
 
   <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-5 border-bottom">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <img src="{{url_for('static', filename='logo.png')}}" alt="" width="70px" height="70px" style="background-color: transparent; border-radius: 50%;">
       </a>
@@ -35,7 +35,17 @@
       </div>
     </header>
   </div>
-
+    <div class="container-sm cont-alert">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} fade show">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    </div>
    {% block content %}{% endblock %}
  
    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
