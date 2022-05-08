@@ -1,5 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect
 from pitches import app
+from pitches import forms
+from pitches.forms import LoginForm, RegistrationForm
 
 @app.route('/')
 def home():
@@ -15,4 +17,5 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
- return render_template('login.html', title='Login')
+ form = LoginForm()
+ return render_template('login.html', title='Login', form=form)
