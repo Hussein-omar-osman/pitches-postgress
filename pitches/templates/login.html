@@ -1,5 +1,18 @@
 {% extends "base_layout.html" %} {% block content %}
-<div class="content-section login-page">
+<div class="content-section login-page shadow p-3 mb-5 bg-body rounded">
+  <img
+    class="mb-4"
+    src="{{url_for('static', filename='logo.png')}}"
+    alt=""
+    width="150px"
+    height="150px"
+    style="
+      background-color: transparent;
+      border-radius: 50%;
+
+      margin-left: 39%;
+    "
+  />
   <form method="POST" action="">
     {{ form.hidden_tag() }}
     <fieldset class="form-group mt-2 mb-2">
