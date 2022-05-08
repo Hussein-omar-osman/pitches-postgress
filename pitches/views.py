@@ -13,7 +13,12 @@ def about():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
- return render_template('register.html', title='Register')
+ form = RegistrationForm()
+ username = form.username.data
+ email = form.email.data
+ password = form.password.data
+ print(username, email, password)
+ return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
