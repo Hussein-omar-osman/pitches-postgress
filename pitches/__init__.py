@@ -12,4 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mwas6190@localhos
 db = SQLAlchemy(app)
 bc = Bcrypt(app)
 lm = LoginManager(app)
+lm.login_view = 'login'
+lm.login_message_category = 'danger'
 from pitches import views

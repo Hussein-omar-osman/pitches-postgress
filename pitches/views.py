@@ -4,7 +4,7 @@ from pitches import app, db, bc
 # from pitches import forms
 from pitches.forms import LoginForm, RegistrationForm
 from pitches.models import User, Post, Comments
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 def home():
@@ -25,8 +25,9 @@ def register():
     user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
     db.session.add(user)
     db.session.commit()
-    flash(f'Account has neen created for {form.username.data}. Now you can login', 'primary')
-    return redirect(url_for('login'))
+    flash(f'Account has neen created for {form.username.data}', 'primary')
+    login_user(user)
+    return redirect(url_for('home'))
   return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -45,3 +46,16 @@ def login():
   else:
       flash('Login Unsuccessful. Please check email and password', 'danger')
  return render_template('login.html', title='Login', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash('You have successfully logged out', 'primary')
+    return redirect(url_for('home'))
+  
+  
+@app.route("/account")
+@login_required
+def account():
+  return render_template('account.html', title='Account')

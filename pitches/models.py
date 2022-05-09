@@ -1,3 +1,5 @@
+from email.policy import default
+from pydoc import describe
 from pitches import db, lm
 from datetime import datetime
 from flask_login import UserMixin
@@ -11,6 +13,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    description = db.Column(db.Text, nullable=False, default='None')
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
