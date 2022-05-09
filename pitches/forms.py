@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from pitches.models import User, Post, Comments
 
 
@@ -17,13 +17,13 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         
         if user:
-            raise ValidationError('Username is taken, choose another')
+            raise ValidationError('Username is taken')
         
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         
         if user:
-            raise ValidationError('Email is taken, choose another')
+            raise ValidationError('Email is taken')
 
 
 class LoginForm(FlaskForm):
