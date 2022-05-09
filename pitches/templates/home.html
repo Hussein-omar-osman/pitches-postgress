@@ -1,18 +1,172 @@
-{% extends "base_layout.html" %} {% block content %} {% for post in posts %}
+{% extends "base_layout.html" %} {% block content %}
+<div
+  class="container login-page d-flex justify-content-center shadow p-2 mb-5 bg-body rounded"
+>
+  <nav aria-label="breadcrumb " class="first d-md-flex p-3">
+    <ol class="breadcrumb indigo lighten-6 first-1 shadow-lg mb-1">
+      <li class="breadcrumb-item">
+        <a class="black-text active-2" href="#Travel"
+          ><span>Travel bucket list</span></a
+        >
+      </li>
+      <li class="breadcrumb-item">
+        <a class="black-text active-2" href="#Pickup"
+          ><span>Pickup lines</span></a
+        >
+      </li>
+      <li class="breadcrumb-item">
+        <a class="black-text active-2" href="#Business"
+          ><span>Business pitch</span></a
+        >
+      </li>
+      <li class="breadcrumb-item mr-0 pr-0">
+        <a class="black-text active-2" href="#Technology"
+          ><span>Technology pitch</span></a
+        >
+      </li>
+      <li class="breadcrumb-item mr-0 pr-0">
+        <a class="black-text active-2" href="#Life"
+          ><span>Life changing ideas</span></a
+        >
+      </li>
+    </ol>
+  </nav>
+</div>
 
-<article class="media content-section">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="#">{{ post.author.username }}</a>
-      <small class="text-muted"
-        >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
-      >
+<h3 style="text-align: center" id="Life">Life changing ideas</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+
+{% for post in posts if post.topic == 'Life changing ideas' %}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
     </div>
-    <h2>
-      <a class="article-title" href="#">{{ post.topic }}</a>
-    </h2>
-    <p class="article-content">{{ post.content }}</p>
   </div>
-</article>
+</div>
 
+{% endfor %}
+
+<h3 style="text-align: center; margin-top: 50px" id="Travel">
+  Travel bucket list
+</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+{% for post in posts if post.topic == 'Travel bucket list' %}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<h3 style="text-align: center; margin-top: 50px" id="Pickup">Pickup lines</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+{% for post in posts if post.topic == 'Pickup lines' %}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<h3 style="text-align: center; margin-top: 50px" id="Technology">
+  Technology pitch
+</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+{% for post in posts if post.topic == 'Technology pitch' %}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<h3 style="text-align: center; margin-top: 50px" id="Business">
+  Business pitch
+</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+{% for post in posts if post.topic == 'Business pitch' %}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
 {% endfor %} {% endblock content %}
