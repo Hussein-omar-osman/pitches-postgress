@@ -1,4 +1,5 @@
 import email
+from importlib.resources import contents
 from flask import Flask, render_template, url_for, flash, redirect, request
 from pitches import app, db, bc
 # from pitches import forms
@@ -8,7 +9,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 def home():
- return render_template('home.html', title='Home')
+ posts = Post.query.order_by(Post.date_posted.desc()).all() 
+ return render_template('home.html', title='Home', posts=posts)
 
 @app.route("/about")
 def about():
@@ -82,5 +84,11 @@ def update_profile():
 @login_required
 def create_pitch():
   form = PitchForm()
-  print(form.topic.data, form.content.data)
+  if form.validate_on_submit():
+    pitch = Post(topic=form.topic.data, content=form.content.data, author=current_user)
+    db.session.add(pitch)
+    db.session.commit()
+    flash('You have posted', 'primary')
+    return redirect(url_for('home'))
+    
   return render_template('create_pitch.html', title='Create Pitch', form=form)

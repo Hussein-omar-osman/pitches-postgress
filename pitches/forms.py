@@ -57,6 +57,6 @@ class UpdateProfileForm(FlaskForm):
             raise ValidationError('Email is taken')
         
 class PitchForm(FlaskForm):      
-    topic = SelectField('Topic',choices=[('Interview pitch','Interview pitch'),('Pickup lines','Pickup lines'),('Business pitch','Business pitch')])
+    topic = SelectField('Topics',choices=[('Travel bucket list','Travel bucket list'),('Pickup lines','Pickup lines'),('Business pitch','Business pitch'), ('Technology pitch','Technology pitch'), ('Life changing ideas','Life changing ideas')])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
