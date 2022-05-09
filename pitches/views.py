@@ -2,7 +2,7 @@ import email
 from flask import Flask, render_template, url_for, flash, redirect, request
 from pitches import app, db, bc
 # from pitches import forms
-from pitches.forms import LoginForm, RegistrationForm, UpdateProfileForm
+from pitches.forms import LoginForm, RegistrationForm, UpdateProfileForm, PitchForm
 from pitches.models import User, Post, Comments
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -77,3 +77,10 @@ def update_profile():
     form.bio.data = current_user.description
     
   return render_template('update_profile.html', title='Update Profile', form=form)
+
+@app.route("/create_pitch", methods=['GET', 'POST'])
+@login_required
+def create_pitch():
+  form = PitchForm()
+  print(form.topic.data, form.content.data)
+  return render_template('create_pitch.html', title='Create Pitch', form=form)

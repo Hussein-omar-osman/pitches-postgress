@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from pitches.models import User
 from flask_login import current_user
@@ -41,7 +41,7 @@ class UpdateProfileForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=50)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    bio = StringField('Bio', widget=TextArea(), validators=[DataRequired()])
+    bio = TextAreaField('Bio', validators=[DataRequired()])
 
     submit = SubmitField('Update')
     def validate_username(self, username):
@@ -55,3 +55,8 @@ class UpdateProfileForm(FlaskForm):
         
         if user:
             raise ValidationError('Email is taken')
+        
+class PitchForm(FlaskForm):      
+    topic = SelectField('Topic',choices=[('Interview pitch','Interview pitch'),('Pickup lines','Pickup lines'),('Business pitch','Business pitch')])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')
