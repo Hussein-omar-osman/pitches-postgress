@@ -1,7 +1,9 @@
+import email
 from flask import Flask, render_template, url_for, flash, redirect
-from pitches import app
-from pitches import forms
+from pitches import app, db, bc
+# from pitches import forms
 from pitches.forms import LoginForm, RegistrationForm
+from pitches.models import User, Post, Comments
 
 @app.route('/')
 def home():
@@ -15,18 +17,20 @@ def about():
 def register():
  form = RegistrationForm()
  
- # print(username, email, password)
+ 
  if form.validate_on_submit():
-  flash(f'Account created for {form.username.data}', 'primary')
-  return redirect(url_for('home'))
+  hashed_pass = bc.generate_password_hash(form.password.data).decode('utf-8')
+  user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
+  db.session.add(user)
+  db.session.commit()
+  flash(f'Account has neen created for {form.username.data}. Now you can login', 'primary')
+  return redirect(url_for('login'))
  return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
  form = LoginForm()
- email = form.email.data
- password = form.password.data
- # print(email, password)
+ 
  if form.validate_on_submit():
   if form.email.data == 'husseinomar6190@gmail.com' and form.password.data == '123':
    flash(f'Successfuly Logged in', 'primary')
