@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+
 
 
 app = Flask(__name__)
@@ -9,4 +11,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mwas6190@localhos
 
 db = SQLAlchemy(app)
 bc = Bcrypt(app)
+lm = LoginManager(app)
 from pitches import views
