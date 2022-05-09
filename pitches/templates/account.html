@@ -10,10 +10,14 @@
           <div class="px-4 mt-1">
             <p class="fonts">{{current_user.description}}</p>
           </div>
+
           <div class="buttons">
-            <button class="btn btn-outline-primary px-4 ms-3">
+            <a
+              href="{{url_for('update_profile')}}"
+              class="btn btn-outline-primary px-4 ms-3"
+            >
               Edit Profile
-            </button>
+            </a>
           </div>
         </div>
       </div>
