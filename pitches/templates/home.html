@@ -50,7 +50,10 @@
           <small style="margin-left: 20px" class="text-muted ml-5"
             >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
           >
-          <a href="" class="btn btn-outline-primary" style="margin-left: 50px"
+          <a
+            href="{{url_for('post', post_id=post.id)}}"
+            class="btn btn-outline-primary"
+            style="margin-left: 50px"
             >Comment</a
           >
         </div>
