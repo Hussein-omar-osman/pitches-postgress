@@ -24,6 +24,42 @@
     </div>
   </div>
 </div>
+
+<h3 style="text-align: center" id="Life">All Pitches</h3>
+<hr style="max-width: 400px; margin: 10px auto" />
+
+{% for post in current_user.posts%}
+
+<div class="container border p-3 mb-2" style="max-width: 1000px">
+  <div class="row">
+    <div class="col-md-9">
+      <article class="media content-section">
+        <div class="media-body">
+          <h4>{{post.topic}}</h4>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <div style="display: flex">
+          <p>Upvotes: {{post.likes}}</p>
+          <p style="margin-left: 50px">Downvotes: {{post.dislikes}}</p>
+        </div>
+        <div class="article-metadata">
+          <a class="mr-4" href="#">{{ post.author.username }}</a>
+          <small style="margin-left: 20px" class="text-muted ml-5"
+            >{{ post.date_posted.strftime('%d-%m-%Y') }}</small
+          >
+          <a
+            href="{{url_for('post', post_id=post.id)}}"
+            class="btn btn-outline-primary"
+            style="margin-left: 50px"
+            >Comment</a
+          >
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
 <!-- <style>
   body {
     background: #eee;

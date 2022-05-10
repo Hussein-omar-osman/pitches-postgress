@@ -14,14 +14,18 @@
     <h2>{{ post.topic }}</h2>
     <p class="article-content" style="font-size: 1.2rem">{{ post.content }}</p>
   </div>
+  <div style="display: flex">
+    <p>Upvotes: {{post.likes}}</p>
+    <p style="margin-left: 50px">Downvotes: {{post.dislikes}}</p>
+  </div>
 </article>
 <div
-  class="container shadow p-4 mb-5 bg-body rounded"
+  class="container shadow p-3 mb-4 bg-body rounded"
   style="max-width: 900px; margin: 20px auto"
 >
   <form method="POST" action="">
     {{ form.hidden_tag() }}
-    <fieldset class="form-group mt-2 mb-2">
+    <fieldset class="form-group mt-1 mb-2">
       <legend class="border-bottom mb-4 text-center">Leave a Comment</legend>
       <div class="form-check" style="display: flex">
         <div>
@@ -53,39 +57,31 @@
   </form>
 </div>
 
-<div class="container d-flex justify-content-center mt-100 mb-100">
+<div
+  class="container d-flex justify-content-center mt-100 mb-100 shadow p-3 mb-4 bg-body rounded"
+  style="max-width: 900px; margin: 20px auto"
+>
   <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Recent Comments</h4>
-          <h6 class="card-subtitle">Latest Comments section by users</h6>
         </div>
-
+        {% for comment in comments%}
         <div class="comment-widgets m-b-20 p-4">
           <div class="d-flex flex-row comment-row">
             <div class="comment-text w-100">
-              <h5>Samso Nagaro</h5>
+              <h5>{{comment.user_comments.username}}</h5>
               <div class="comment-footer">
-                <span class="date">April 14, 2019</span>
-                <span class="label label-info">Pending</span>
-                <span class="action-icons">
-                  <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
-                  <a href="#" data-abc="true"
-                    ><i class="fa fa-rotate-right"></i
-                  ></a>
-                  <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
-                </span>
+                <span class="date text-muted"
+                  >{{comment.date_posted.strftime('%d-%m-%Y')}}</span
+                >
               </div>
-              <p class="m-b-5 m-t-10">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it
-              </p>
+              <p class="m-b-5 m-t-10">{{comment.content}}</p>
             </div>
           </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </div>

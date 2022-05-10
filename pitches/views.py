@@ -1,4 +1,4 @@
-import email
+import smtplib
 from importlib.resources import contents
 from flask import Flask, render_template, url_for, flash, redirect, request
 from pitches import app, db, bc
@@ -16,21 +16,38 @@ def home():
 def about():
  return render_template('about.html', title='About')
 
+
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
+     
+#   form = RegistrationForm()
+
+#   if form.validate_on_submit():
+#     print(form.username.data, form.email.data, form.password.data, )
+#   return render_template('register.html', title='Register', form=form)
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-  if current_user.is_authenticated:
-    return redirect(url_for('home'))    
-  form = RegistrationForm()
-
-  if form.validate_on_submit():
-    hashed_pass = bc.generate_password_hash(form.password.data).decode('utf-8')
-    user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
-    db.session.add(user)
-    db.session.commit()
-    flash(f'Account has neen created for {form.username.data}', 'primary')
-    login_user(user)
-    return redirect(url_for('home'))
-  return render_template('register.html', title='Register', form=form)
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RegistrationForm()
+    users = User.query.all()
+    if form.validate_on_submit():
+        hashed_password = bc.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        my_email = 'bazub702@gmail.com'
+        my_password = 'mwas6190'
+        content = 'I am very exicted to see you create an account thtanks'
+        with smtplib.SMTP('smtp.gmail.com') as connection:
+            connection.starttls()
+            connection.login(user=my_email, password=my_password)
+            connection.sendmail(from_addr=my_email, to_addrs=user.email,
+                            msg=f'Subject:{user.username}: Welcome to flask blog\n\n {content}')
+        flash(f'Account created for {form.username.data}! You can Log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form, users=users)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -93,9 +110,29 @@ def create_pitch():
     
   return render_template('create_pitch.html', title='Create Pitch', form=form)
 
-@app.route("/post/<post_id>")
+@app.route("/post/<post_id>" , methods=['GET', 'POST'])
+@login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
+    comments = Comments.query.order_by(Comments.date_posted.desc()).filter_by(post_id=post_id)
     form = CommentForm()
-    return render_template('post.html', post=post, form=form)
+    if form.validate_on_submit():
+      if form.upvote.data:
+        recent = post.likes
+        new = recent + 1
+        post.likes = new
+        db.session.commit()
+        
+      if form.downvote.data:
+        recent = post.dislikes
+        new = recent + 1
+        post.dislikes = new
+        db.session.commit()
+        
+      comment = Comments(content=form.content.data, user_comments=current_user, post_id=post_id)
+      db.session.add(comment)
+      db.session.commit()
+      flash('You have commented', 'primary')
+      return redirect(url_for('post', post_id=post_id))
+    return render_template('post.html', post=post, form=form, comments=comments)
 
