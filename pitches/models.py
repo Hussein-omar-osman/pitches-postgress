@@ -1,5 +1,3 @@
-from email.policy import default
-from pydoc import describe
 from pitches import db, lm
 from datetime import datetime
 from flask_login import UserMixin

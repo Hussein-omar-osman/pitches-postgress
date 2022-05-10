@@ -12,20 +12,6 @@ def home():
  posts = Post.query.order_by(Post.date_posted.desc()).all() 
  return render_template('home.html', title='Home', posts=posts)
 
-@app.route("/about")
-def about():
- return render_template('about.html', title='About')
-
-
-# @app.route("/register", methods=['GET', 'POST'])
-# def register():
-     
-#   form = RegistrationForm()
-
-#   if form.validate_on_submit():
-#     print(form.username.data, form.email.data, form.password.data, )
-#   return render_template('register.html', title='Register', form=form)
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -46,7 +32,8 @@ def register():
             connection.sendmail(from_addr=my_email, to_addrs=user.email,
                             msg=f'Subject:{user.username}: Welcome to flask blog\n\n {content}')
         flash(f'Account created for {form.username.data}! You can Log in', 'success')
-        return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form, users=users)
 
 @app.route("/login", methods=['GET', 'POST'])

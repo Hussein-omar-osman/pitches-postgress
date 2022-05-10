@@ -3,7 +3,6 @@ from wtforms import StringField, PasswordField, SubmitField, TextAreaField, Sele
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from pitches.models import User
 from flask_login import current_user
-from wtforms.widgets import TextArea
 
 
 class RegistrationForm(FlaskForm):
