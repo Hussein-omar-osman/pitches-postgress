@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=False, default='None')
     posts = db.relationship('Post', backref='author', lazy=True)
+    comments = db.relationship('Comments', backref='user_comments', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -38,5 +39,6 @@ class Comments(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     def __repr__(self):
         return f"Post('{self.content}', '{self.date_posted}')"
