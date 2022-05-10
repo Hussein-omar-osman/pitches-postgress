@@ -92,3 +92,4 @@ def create_pitch():
     return redirect(url_for('home'))
     
   return render_template('create_pitch.html', title='Create Pitch', form=form)
+
