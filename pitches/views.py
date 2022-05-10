@@ -3,7 +3,7 @@ from importlib.resources import contents
 from flask import Flask, render_template, url_for, flash, redirect, request
 from pitches import app, db, bc
 # from pitches import forms
-from pitches.forms import LoginForm, RegistrationForm, UpdateProfileForm, PitchForm
+from pitches.forms import LoginForm, RegistrationForm, UpdateProfileForm, PitchForm, CommentForm
 from pitches.models import User, Post, Comments
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -96,5 +96,6 @@ def create_pitch():
 @app.route("/post/<post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', post=post)
+    form = CommentForm()
+    return render_template('post.html', post=post, form=form)
 

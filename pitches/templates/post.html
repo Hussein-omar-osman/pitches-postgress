@@ -1,5 +1,8 @@
 {% extends "base_layout.html" %} {% block content %}
-<article class="media content-section">
+<article
+  class="media content-section"
+  style="max-width: 900px; margin: 20px auto"
+>
   <div class="media-body">
     <div class="article-metadata">
       <a class="mr-2" href="#">{{ post.author.username }}</a>
@@ -9,9 +12,46 @@
     </div>
 
     <h2>{{ post.topic }}</h2>
-    <p class="article-content">{{ post.content }}</p>
+    <p class="article-content" style="font-size: 1.2rem">{{ post.content }}</p>
   </div>
 </article>
+<div
+  class="container shadow p-4 mb-5 bg-body rounded"
+  style="max-width: 900px; margin: 20px auto"
+>
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group mt-2 mb-2">
+      <legend class="border-bottom mb-4 text-center">Leave a Comment</legend>
+      <div class="form-check" style="display: flex">
+        <div>
+          {{ form.upvote(class="form-check-input") }} {{
+          form.upvote.label(class="form-check-label") }}
+        </div>
+        <div style="margin-left: 50px">
+          {{ form.downvote(class="form-check-input") }} {{
+          form.downvote.label(class="form-check-label") }}
+        </div>
+      </div>
+
+      <div class="form-group mt-2 mb-2">
+        {{ form.content.label(class="form-control-label") }} {% if
+        form.content.errors %} {{ form.content(class="form-control
+        form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.content(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+    </fieldset>
+    <div class="form-group mt-2 mb-2">
+      {{ form.submit(class="btn btn-outline-primary") }}
+    </div>
+  </form>
+</div>
 
 <div class="container d-flex justify-content-center mt-100 mb-100">
   <div class="row">
@@ -22,16 +62,8 @@
           <h6 class="card-subtitle">Latest Comments section by users</h6>
         </div>
 
-        <div class="comment-widgets m-b-20">
+        <div class="comment-widgets m-b-20 p-4">
           <div class="d-flex flex-row comment-row">
-            <!-- <div class="p-2">
-              <span class="round"
-                ><img
-                  src="https://i.imgur.com/uIgDDDd.jpg"
-                  alt="user"
-                  width="50"
-              /></span>
-            </div> -->
             <div class="comment-text w-100">
               <h5>Samso Nagaro</h5>
               <div class="comment-footer">

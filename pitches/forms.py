@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from pitches.models import User
 from flask_login import current_user
@@ -60,3 +60,10 @@ class PitchForm(FlaskForm):
     topic = SelectField('Topics',choices=[('Travel bucket list','Travel bucket list'),('Pickup lines','Pickup lines'),('Business pitch','Business pitch'), ('Technology pitch','Technology pitch'), ('Life changing ideas','Life changing ideas')])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
+    
+class CommentForm(FlaskForm):
+    content = StringField('Add a comment', validators=[DataRequired()])
+    upvote = BooleanField('Upvote')
+    downvote = BooleanField('Downvote')
+    submit = SubmitField('Comment')
+    
