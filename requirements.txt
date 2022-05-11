@@ -29,3 +29,4 @@ virtualenv==20.14.1
 virtualenv-clone==0.5.7
 Werkzeug==2.1.1
 WTForms==3.0.1
+psycopg2==2.9.3
