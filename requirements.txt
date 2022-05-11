@@ -25,3 +25,4 @@ six==1.16.0
 SQLAlchemy==1.4.36
 Werkzeug==2.1.1
 WTForms==2.3.1
+email-validator==1.2.1
