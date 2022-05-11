@@ -43,6 +43,7 @@ def login():
  form = LoginForm()
  
  if form.validate_on_submit():
+  print(form.email.data)
   user = User.query.filter_by(email=form.email.data).first()
   if user and bc.check_password_hash(user.password, form.password.data):
       login_user(user)

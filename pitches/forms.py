@@ -15,16 +15,16 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
     def validate_username(self, username):
-        if current_user.username != username.data:
-            user = User.query.filter_by(username=username.data).first()
-            if user:
-                raise ValidationError('Username is taken')
+        
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Username is taken')
         
     def validate_email(self, email):
-        if current_user.email != email.data:
-            user = User.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('Email is taken')
+        
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Email is taken')
 
 
 class LoginForm(FlaskForm):

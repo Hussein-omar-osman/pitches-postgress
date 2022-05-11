@@ -7,13 +7,19 @@ from flask_migrate import Migrate
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '5791628b453b0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mwas6190@localhost/pitches'
+app.config['SECRET_KEY'] = 'this-is-my-very-secret-key'
+
+env = 'dev'
+if env == 'dev':
+ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mwas6190@localhost/pitches'
+ app.debug = True
+else:
+ app.debug = False
 
 db = SQLAlchemy(app)
 bc = Bcrypt(app)
 migrate = Migrate(app, db)
-lm = LoginManager(app)
-lm.login_view = 'login'
-lm.login_message_category = 'danger'
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'danger'
 from pitches import views
