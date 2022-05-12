@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'this-is-my-very-secret-key'
 
-env = 'prod'
+env = 'pro'
 if env == 'dev':
  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mwas6190@localhost/pitches'
  app.debug = True

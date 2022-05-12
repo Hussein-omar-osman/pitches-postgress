@@ -1,5 +1,4 @@
 import smtplib
-from importlib.resources import contents
 from flask import Flask, render_template, url_for, flash, redirect, request
 from pitches import app, db, bc
 # from pitches import forms
@@ -23,16 +22,15 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
+        login_user(user)
         my_email = 'bazub702@gmail.com'
         my_password = 'mwas6190'
-        content = 'I am very exicted to see you create an account thtanks'
+        content = 'I am very exicted to see you create an account with us, thanks'
         with smtplib.SMTP('smtp.gmail.com') as connection:
             connection.starttls()
             connection.login(user=my_email, password=my_password)
-            connection.sendmail(from_addr=my_email, to_addrs=user.email,
-                            msg=f'Subject:{user.username}: Welcome to flask blog\n\n {content}')
-        flash(f'Account created for {form.username.data}! You can Log in', 'success')
-        login_user(user)
+            connection.sendmail(from_addr=my_email, to_addrs=form.email.data, msg=f'Subject: Welcome  {user.username}to Pitches Post\n\n {content}')
+        flash(f'Account created for {form.username.data}! You can Log in any time', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form, users=users)
 
